@@ -1,0 +1,50 @@
+# 1. Create a sample_weather.txt file
+weather_data = [
+    "Date Temperature DewPoint WindSpeed",
+    "2025-04-25 25.0 15.0 5.5",
+    "2025-04-26 27.0 16.5 6.0",
+    "2025-04-27 24.5 14.5 5.0",
+    "2025-04-28 26.0 15.0 5.8",
+    "2025-04-29 28.5 17.0 6.2"
+]
+
+# Save file inside Colab workspace
+with open("/content/sample_weather.txt", "w") as f:
+    for line in weather_data:
+        f.write(line + "\n")
+
+print("Sample weather data file created at /content/sample_weather.txt")
+
+# 2. Process the file to compute averages
+total_temp = 0.0
+total_dew = 0.0
+total_wind = 0.0
+count = 0
+
+# Read and process the file
+with open("/content/sample_weather.txt", "r") as f:
+    next(f)  # Skip the header line
+    for line in f:
+        parts = line.strip().split()
+        if len(parts) == 4:
+            temperature = float(parts[1])
+            dew_point = float(parts[2])
+            wind_speed = float(parts[3])
+
+            total_temp += temperature
+            total_dew += dew_point
+            total_wind += wind_speed
+            count += 1
+
+# Calculate and display averages
+if count > 0:
+    avg_temp = total_temp / count
+    avg_dew = total_dew / count
+    avg_wind = total_wind / count
+
+    print("\nWeather Data Averages:")
+    print(f"Average Temperature: {avg_temp:.2f} °C")
+    print(f"Average Dew Point: {avg_dew:.2f} °C")
+    print(f"Average Wind Speed: {avg_wind:.2f} km/h")
+else:
+    print("No data available to process.")

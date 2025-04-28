@@ -1,0 +1,25 @@
+import numpy as np
+import pandas as pd
+
+df = pd.read_csv('Iris_dataset.csv')
+df
+
+
+df.isnull().sum()
+
+grouped = df.groupby('flower_name')
+summary = grouped[['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']].agg(['mean', 'median', 'min', 'max', 'std'])
+print(summary)
+
+#part2
+setosa = df[df['flower_name'] == 'setosa']
+print("\nSetosa Description:\n")
+print(setosa.describe())
+
+versicolor = df[df['flower_name'] == 'versicolor']
+print("\nVersicolor Description:\n")
+print(versicolor.describe())
+
+virginica = df[df['flower_name'] == 'virginica']
+print("\nVirginica Description:\n")
+print(virginica.describe())

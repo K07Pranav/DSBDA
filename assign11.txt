@@ -1,0 +1,19 @@
+from collections import defaultdict
+import sys
+from io import StringIO
+
+# Simulate stdin
+sys.stdin = StringIO("Hello World. Hello again.")
+
+word_count = defaultdict(int)
+
+for line in sys.stdin:
+    line = line.strip().lower()
+    line = line.replace(".", " ")
+    words = line.split()
+    
+    for word in words:
+        word_count[word] += 1
+
+for word, count in word_count.items():
+    print(f'{count}\t{word}')
