@@ -1,0 +1,56 @@
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("train.csv")
+df
+
+df.shape
+
+#check null values in each column and give individual sum of all the columns
+df.isnull().sum()
+
+#generate summary statistics of the numeric columns
+df.describe()
+
+#replaces nan with unknown in cabin column
+df["Cabin"] = df["Cabin"].replace(to_replace = np.nan, value = "unknown")
+df
+
+#The NaN will be replaced with 24.0 (i.e., the average of 22(prev) and 26(next)).
+df["Age"] = df["Age"].interpolate()
+df
+
+#changing datatypes
+df.dtypes
+
+df["Age"] = df["Age"].astype('int64')
+df.dtypes
+
+#get_dummies() converts categorical variables into dummy/indicator variables (i.e., numerical 0/1 form).
+
+//catorical_cols = ['Sex','Embarked','Pclass']
+/*df.encoded = pd.get_dummies(
+
+    df,
+    columns=catorical_cols,
+    prefix = catorical_cols,
+    drop_first = True,
+    dtype='int64'
+    
+)
+df*/
+
+
+quantitative_data = pd.get_dummies(df["Embarked"], prefix="Embarked")
+
+quantitative_data = pd.get_dummies(df["Embarked"], prefix="Embarked").astype(int)
+quantitative_data
+
+
+
+
+df = df.join(quantitative_data)
+df
+
+df.drop(['Embarked'],axis= 1,inplace = True)
+df
